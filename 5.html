@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Music Pad Classes Page</title>
+    <style>
+        /* Full page gradient background with animation */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ff0000, #1e90ff, #ff4500);
+            background-size: 300% 300%;
+            animation: gradientBackground 12s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Keyframe for gradient animation */
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container with shadow and hover effects */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.5s, box-shadow 0.5s;
+            z-index: 10; /* Keep container in front */
+        }
+
+        .container:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animated title with hover rotation effect */
+        h1 {
+            font-size: 3rem;
+            color: #333;
+            position: relative;
+            animation: fadeInText 3s forwards;
+            transition: transform 0.6s;
+        }
+
+        h1:hover {
+            transform: rotate(360deg); /* Rotate the title on hover */
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gradient animated text */
+        .highlight {
+            background: linear-gradient(45deg, #ff0000, #1e90ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: colorShift 8s infinite;
+        }
+
+        @keyframes colorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Call button with bounce animation and hover effect */
+        .contact-btn {
+            font-size: 1.5rem;
+            padding: 15px 40px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: background-color 0.4s ease, transform 0.3s ease;
+            z-index: 15;
+        }
+
+        /* Button hover: color change and grow effect */
+        .contact-btn:hover {
+            background-color: #1e90ff;
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Focus effect for button after click */
+        .call-active {
+            transform: scale(2) !important;
+            background-color: #1e90ff !important;
+            z-index: 20;
+        }
+
+        /* Bounce animation for button */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Floating music note icons with hover wiggle effect */
+        .emoji {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.8;
+            animation: float 10s linear infinite;
+            transition: transform 0.5s, opacity 0.5s;
+            z-index: 5;
+        }
+
+        .emoji:hover {
+            transform: rotate(20deg) scale(1.2); /* Rotate and enlarge emojis on hover */
+        }
+
+        /* Move emojis to background with reduced opacity */
+        .emoji-background {
+            opacity: 0.2 !important;
+            z-index: 0 !important;
+        }
+
+        /* Keyframes for emoji floating animation */
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Random positions and speeds for each emoji */
+        .emoji:nth-child(1) { left: 5%; animation-duration: 8s; }
+        .emoji:nth-child(2) { left: 20%; animation-duration: 12s; }
+        .emoji:nth-child(3) { left: 40%; animation-duration: 10s; }
+        .emoji:nth-child(4) { left: 60%; animation-duration: 14s; }
+        .emoji:nth-child(5) { left: 80%; animation-duration: 9s; }
+
+        /* Hover color effect on emojis */
+        .emoji:nth-child(1):hover { color: #ff4500; }
+        .emoji:nth-child(2):hover { color: #1e90ff; }
+        .emoji:nth-child(3):hover { color: #ff0000; }
+        .emoji:nth-child(4):hover { color: #1e90ff; }
+        .emoji:nth-child(5):hover { color: #ff4500; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Container for message and call-to-action -->
+    <div class="container">
+        <h1><span class="highlight">🎶 Music Pad Classes 🎶</span></h1>
+        <p>Music pad classes are currently in session! If anyone is interested in joining, please contact:</p>
+        <button class="contact-btn" id="callButton" onclick="makeCall()">Call: 8951045600</button>
+    </div>
+
+    <!-- Floating emojis -->
+    <div class="emoji">🎵</div>
+    <div class="emoji">🎶</div>
+    <div class="emoji">🎵</div>
+    <div class="emoji">🎶</div>
+    <div class="emoji">🎵</div>
+
+    <script>
+        function makeCall() {
+            // Add the call-active class to the button to highlight it
+            var callButton = document.getElementById('callButton');
+            callButton.classList.add('call-active');
+            
+            // Push emojis to the background
+            var emojis = document.querySelectorAll('.emoji');
+            emojis.forEach(function(emoji) {
+                emoji.classList.add('emoji-background');
+            });
+            
+            // Simulate call functionality (you can customize this)
+            setTimeout(function() {
+                window.location.href = 'tel:8951045600'; // Simulate the call by redirecting to phone dialer
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>
